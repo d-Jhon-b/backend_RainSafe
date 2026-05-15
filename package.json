@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "tsx watch src/main.ts"
+
+  },
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
     "express": "^5.2.1",
