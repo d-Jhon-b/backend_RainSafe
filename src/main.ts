@@ -1,3 +1,4 @@
+import morgan from "morgan";
 import express from "express";
 import * as dotenv from 'dotenv';
 
@@ -10,7 +11,7 @@ dotenv.config();
 
 async function bootstrap() {
   const app = express();
-
+  app.use(morgan("dev"));
   const allowedOrigins = [
     "http://localhost:5173",           
     "http://localhost:3000",            
@@ -43,6 +44,18 @@ async function bootstrap() {
     }
   });
   
+  app.use((req, res, next) => {
+  const timestamp = new Date().toLocaleTimeString();
+  console.log(`[${timestamp}] 📡 Chamada: ${req.method} ${req.url}`);
+  
+  if (req.method === "POST") {
+    // console.log("Body enviado:", req.body);
+    console.log("Body enviado:", JSON.stringify(req.body, null, 2));
+  }
+    
+    next();
+  });
+
   RegisterRoutes(app);
 
   app.listen(process.env.PORT || 3000, () => {
