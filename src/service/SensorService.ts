@@ -1,5 +1,5 @@
 import { db } from "../config/database";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit, where } from "firebase/firestore";
 import { SensorReadout } from "../interfaces/SensorReadout";
 
 export class SensorService {
@@ -9,6 +9,23 @@ export class SensorService {
     const snapshot = await getDocs(q);
     
     return snapshot.docs.map(doc => doc.data() as SensorReadout);
+  }
+  public async fetchLatestReading(sensorId: string): Promise<SensorReadout | null> {
+    const sensorCol = collection(db, "historico_sensores");
+    const q = query(
+      sensorCol,
+      where("sensor_id", "==", sensorId),
+      orderBy("timestamp", "desc"),
+      limit(1)
+    );
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) return null;
+    const doc = snapshot.docs[0];
+    const data = doc.data();
+    return {
+      ...data,
+      timestamp: data.timestamp.toDate() // Converte Timestamp do Firebase para Date do JS
+    } as SensorReadout;
   }
 }
 

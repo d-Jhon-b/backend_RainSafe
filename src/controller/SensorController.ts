@@ -9,4 +9,9 @@ export class SensorController {
   public async handleGetHistory(): Promise<SensorReadout[]> {
     return await this.service.getRecentHistory();
   }
+
+
+  public async getLatestBySensorId(id: string): Promise<SensorReadout | null> {
+    return await this.service.fetchLatestReading(id);
+  }
 }
