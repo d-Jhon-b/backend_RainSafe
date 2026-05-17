@@ -1,0 +1,80 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"SensorReadout": {
+				"properties": {
+					"sensor_id": {
+						"type": "string"
+					},
+					"temperatura": {
+						"type": "number",
+						"format": "double"
+					},
+					"umidade": {
+						"type": "number",
+						"format": "double"
+					},
+					"status_chuva": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"sensor_id",
+					"temperatura",
+					"umidade",
+					"status_chuva",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "",
+		"contact": {}
+	},
+	"paths": {
+		"/rainsafe/historico": {
+			"get": {
+				"operationId": "GetHistorico",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/SensorReadout"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Monitoramento"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

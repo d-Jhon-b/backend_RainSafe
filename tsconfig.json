@@ -1,21 +1,27 @@
 {
   "compilerOptions": {
-
-    "module": "nodenext",
     "target": "esnext",
-    "types": [],
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "rootDir": "src",                   
+    "outDir": "build",    
+    
+    "experimentalDecorators": true,         
+    "emitDecoratorMetadata": true,          
 
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "strict": true,
-    // "jsx": "react-jsx",
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-  }
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,                   
+    
+    "esModuleInterop": true,                
+    "resolveJsonModule": true,              
+    // "moduleResolution": "node",
+    "isolatedModules": true,                
+    
+    "sourceMap": true,
+    "declaration": true
+  },
+  "include": ["src/**/*"],                  
+  "exclude": ["node_modules", "build", "dist"] 
 }

@@ -1,16 +1,22 @@
 {
   "scripts": {
-    "dev": "tsx watch src/main.ts"
-
+    "tsoa": "tsoa spec-and-routes",
+    "dev": "tsoa spec-and-routes && tsx watch src/main.ts",
+    "build": "npm install && tsoa spec-and-routes && tsc"
   },
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "firebase": "^12.13.0"
+    "firebase": "^12.13.0",
+    "mqtt": "^5.15.1",
+    "swagger-ui-express": "^5.0.1",
+    "tsoa": "^7.0.0-alpha.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.8.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "tsx": "^4.22.0",
     "typescript": "^6.0.3"
   }
