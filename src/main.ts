@@ -8,11 +8,6 @@ import swaggerUi from "swagger-ui-express";
 
 dotenv.config();
 
-
-const allowUrls = [
-
-
-]
 async function bootstrap() {
   const app = express();
 
