@@ -1,6 +1,6 @@
 import { SensorService } from "../service/SensorService";
 import { SensorReadout } from "../interfaces/SensorReadout";
-
+import type{ Device } from "../interfaces/Devices";
 export class SensorController {
   private service: SensorService;
   constructor() {
@@ -13,5 +13,19 @@ export class SensorController {
 
   public async getLatestBySensorId(id: string): Promise<SensorReadout | null> {
     return await this.service.fetchLatestReading(id);
+  }
+
+
+  public async registerDevice(device: Device): Promise<Device | any> {
+    try{
+      return await this.service.registerDevice(device);
+    }catch(error){
+      return {erro: error}
+    }
+  }
+
+
+  public async getManyDevice(): Promise<Device[]> {
+    return await this.service.getAllDevices();
   }
 }

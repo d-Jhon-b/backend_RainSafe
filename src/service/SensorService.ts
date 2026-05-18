@@ -1,7 +1,7 @@
 import { db } from "../config/database";
-import { collection, getDocs, query, orderBy, limit, where } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit, where,doc, setDoc } from "firebase/firestore";
 import { SensorReadout } from "../interfaces/SensorReadout";
-
+import type { Device } from "../interfaces/Devices";
 export class SensorService {
   public async getRecentHistory(): Promise<SensorReadout[]> {
     const sensorCol = collection(db, "historico_sensores");
@@ -26,6 +26,20 @@ export class SensorService {
       ...data,
       timestamp: data.timestamp.toDate() // Converte Timestamp do Firebase para Date do JS
     } as SensorReadout;
+  }
+
+  public async registerDevice(device: Device): Promise<void> {
+    const deviceRef = doc(db, "dispositivos", device.sensor_id);
+    await setDoc(deviceRef, {
+      ...device,
+      createdAt: new Date()
+    });
+  }
+
+  public async getAllDevices(): Promise<Device[]> {
+    const col = collection(db, "dispositivos");
+    const snapshot = await getDocs(col);
+    return snapshot.docs.map(doc => doc.data() as Device);
   }
 }
 

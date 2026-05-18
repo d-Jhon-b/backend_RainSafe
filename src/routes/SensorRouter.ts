@@ -1,6 +1,8 @@
-import { Get, Route, Controller, Tags,Path } from "tsoa";
+import { Get, Route, Controller, Tags,Path, Post,Body } from "tsoa";
 import { SensorController } from "../controller/SensorController";
 import { SensorReadout } from "../interfaces/SensorReadout";
+import { Device } from "../interfaces/Devices";
+
 
 @Route("rainsafe")
 @Tags("Monitoramento")
@@ -26,6 +28,15 @@ export class SensorRouter extends Controller {
     return result;
   }
   
+  @Post("dispositivos")
+  public async addDevice(@Body() requestBody: Device): Promise<void> {
+    this.setStatus(201); // Created
+    await this.controller.registerDevice(requestBody);
+  }
+  @Get("dispositivos")
+  public async listDevices(): Promise<Device[]> {
+    return await this.controller.getManyDevice();
+  }
 
 
 }
