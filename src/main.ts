@@ -15,7 +15,7 @@ async function bootstrap() {
   const allowedOrigins = [
     "http://localhost:5173",           
     "http://localhost:3000",            
-    "https://rainsafe-web.vercel.app"   
+    "https://projeto-io-t26-frontend.vercel.app"   
   ];
 
   const corsOptions: cors.CorsOptions = {
